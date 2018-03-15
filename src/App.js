@@ -13,8 +13,8 @@ class App extends Component {
         </header>
         <p className="App-intro">
           Touch App Events
-          <MainComponent />
         </p>
+        <MainComponent />
       </div>
     );
   }
