@@ -2,34 +2,58 @@ import React, { Component } from 'react';
 import ReactTouchEvents from "react-touch-events";
 export default class MainComponent extends Component {
 
-    handleTap () {
-    
-        console.log("you have taped me");
-    
+    constructor(props) {
+        super(props);
+        this.state = {
+            direction: null,
+            taped: false
+        }
     }
-    
-    handleSwipe (direction) {
-    
+    handleTap() {
+        this.setState({
+            taped: true
+        })
+    }
+
+    handleSwipe(direction) {
         switch (direction) {
             case "top":
             case "bottom":
             case "left":
             case "right":
-            
-                console.log(`you swiped ${direction}`)
-        
+                this.setState({
+                    direction: direction
+                })
         }
     }
     render() {
         return (
-            <ReactTouchEvents
-                onTap={this.handleTap.bind(this)}
-                onSwipe={this.handleSwipe.bind(this)}
-            >
-                <div data-element='main_component' className='main_component' >
-                    Tocuh this section
+            <section>
+                <ReactTouchEvents
+                    onTap={this.handleTap.bind(this)}
+                    onSwipe={this.handleSwipe.bind(this)}
+                >
+                    <div data-element='main_component' className={`main_component ${this.state.direction}`} >
+                        Tocuh this section
                 </div>
-            </ReactTouchEvents>
+                </ReactTouchEvents>
+
+                <br />
+                <div className='results'  >
+                    {
+                        this.state.direction ?
+                            `Nos vamos para ${this.state.direction}`
+                            : 'Aún no haces nada!!!'
+                    }
+                    <br/>
+                    <br/>
+                    {
+                        this.state.taped ?
+                            `Haz dado click!`
+                            : ''
+                    }
+                </div>
+            </section>
         )
     }
 
